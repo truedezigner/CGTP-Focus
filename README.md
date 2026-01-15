@@ -1,4 +1,4 @@
-##ChatGPT Auto Focus Tab on Complete
+## ChatGPT Auto Focus Tab on Complete
 
 A lightweight Chrome extension content script that **automatically refocuses the ChatGPT tab only after a response is fully finished generating**, and scrolls precisely to the final assistant output actions (Copy / Edit buttons).
 
