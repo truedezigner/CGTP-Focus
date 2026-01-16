@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="240" viewBox="0 0 900 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="70" y1="40" x2="190" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10A37F"/>
+      <stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
+    <filter id="s" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#s)">
+    <rect x="40" y="40" width="160" height="160" rx="40" fill="#0B0F14"/>
+    <path d="M92 88C92 77 101 68 112 68H150C161 68 170 77 170 88V126C170 137 161 146 150 146H130L112 162V146H112C101 146 92 137 92 126V88Z"
+          fill="url(#g)"/>
+    <path d="M118 112L132 126L152 104" stroke="#0B0F14" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="58" y="58" width="124" height="124" rx="32" stroke="#10A37F" stroke-opacity="0.35" stroke-width="4"/>
+  </g>
+
+  <g>
+    <text x="240" y="118" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+          font-size="64" font-weight="800" fill="#0B0F14">cgpt-focus</text>
+    <text x="244" y="170" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+          font-size="22" font-weight="500" fill="#334155">
+      Auto-focus the ChatGPT tab when generation completes
+    </text>
+    <rect x="244" y="184" width="210" height="10" rx="5" fill="#10A37F" fill-opacity="0.22"/>
+  </g>
+</svg>

@@ -1,103 +1,77 @@
-# ChatGPT Auto Focus Tab on Complete
+# cgpt-focus
 
-A lightweight Chrome extension content script that **automatically refocuses the ChatGPT tab only after a response is fully finished generating**, and scrolls precisely to the final assistant output actions (Copy / Edit buttons).
+<p align="center">
+  <img src="assets/cgpt-focus-logo.svg" alt="cgpt-focus logo" width="720" />
+</p>
 
-This avoids premature tab switching while ChatGPT is still streaming text and works reliably with ChatGPT’s React-based UI.
+**cgpt-focus** is a tiny Chrome extension that:
+
+- **Auto-focuses** the most recently submitted ChatGPT tab **only after generation finishes** (Stop button disappears).
+- **Scrolls** to the bottom of the latest assistant response—right to the **Copy/Edit action row**.
+
+Built to avoid the annoying “switches too early” behavior and to survive ChatGPT’s React UI re-renders.
 
 ---
 
 ## ✨ Features
 
-- ✅ Detects **true submission events**
-  - Enter key (without Shift)
-  - Send button click
-  - Form submit
-- ✅ Waits for **generation to fully complete**
-  - Uses disappearance of the **“Stop streaming”** button
-- ✅ Prevents early or repeated focus switching
-- ✅ Scrolls to the **exact end of the assistant message**
-  - Anchors to the **Copy button** row when available
-- ✅ Survives ChatGPT UI re-renders
-- ✅ Quiet messaging (no `runtime.lastError` noise)
-- ✅ No dependencies
+- ✅ Focus the **latest submitted** ChatGPT tab when output completes
+- ✅ Never switches early (waits for **Stop streaming** button to disappear)
+- ✅ Works across multiple ChatGPT tabs
+- ✅ Scrolls to the final assistant action controls (Copy/Edit)
+- ✅ React-safe: document-level capture listeners survive DOM swaps
 
 ---
 
-## 🔍 Why This Exists
+## 📦 Install (Unpacked)
 
-ChatGPT’s UI swaps DOM elements during generation.  
-Most scripts incorrectly detect “done” as soon as text appears.
-
-This script **only considers a run complete when the Stop button disappears**, which is the single reliable signal that generation has ended.
-
----
-
-## 🧠 How It Works
-
-1. Intercepts message submission (Enter / Send / Form submit)
-2. Generates a unique run token
-3. Polls the DOM for the **Stop streaming** button
-4. Marks completion only when the Stop button disappears
-5. Scrolls to the final assistant action buttons
-6. Signals the background script to focus the tab
+1. Download the zip and extract it.
+2. Open Chrome → `chrome://extensions`
+3. Enable **Developer mode**
+4. Click **Load unpacked**
+5. Select the extracted folder: `cgpt-focus/`
+6. Open ChatGPT and refresh the tab(s).
 
 ---
 
-## 📂 Files
+## 🧠 How it Works
 
-```
-content.js   # Main logic (DOM detection, scrolling, messaging)
-```
-
----
-
-## 🧪 Console Messages (Safe to Ignore)
-
-You may see messages like:
-
-```
-net::ERR_BLOCKED_BY_CLIENT
-Permissions-Policy header warnings
-```
-
-These originate from blocked telemetry or browser privacy features and **do not affect functionality**.
+- On submit (Enter / Send click), we generate a per-run token and mark that tab as the “latest submission”.
+- While ChatGPT streams, the **Stop** button exists.
+- When the Stop button disappears, we:
+  1. Scroll to the last assistant action row (Copy button)
+  2. Tell the background script to focus that tab (only once per run)
 
 ---
 
-## 🛠 Configuration
+## 📂 Project Structure
 
-Polling interval:
-
-```js
-const POLL_MS = 250;
-```
-
-Scroll offset:
-
-```js
-btn.style.scrollMarginTop = "80px";
+```text
+cgpt-focus/
+├── manifest.json
+├── background.js
+├── content.js
+├── README.md
+└── assets/
+    ├── cgpt-focus-logo.svg
+    └── icons/
+        ├── cgpt-focus-icon-16.png
+        ├── cgpt-focus-icon-32.png
+        ├── cgpt-focus-icon-48.png
+        └── cgpt-focus-icon-128.png
 ```
 
 ---
 
-## 🚫 Non-Goals
+## 🔧 Customization
 
-- No UI injection
-- No data storage
-- No interference with streaming
-- No ChatGPT output modification
-
----
-
-## 📜 License
-
-MIT — free to use, modify, and distribute.
+- Polling interval:
+  - `POLL_MS` in `content.js` (default: 250ms)
+- Scroll offset:
+  - `scrollMarginTop` (default: 80px)
 
 ---
 
-## 🧠 Maintenance Notes
+## 📝 License
 
-If ChatGPT updates their UI:
-- Verify the **Stop button selector**
-- Verify the **Copy button selector**
-- Core logic should remain stable
+MIT — do whatever you want.
